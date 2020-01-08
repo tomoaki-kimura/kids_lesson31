@@ -12,9 +12,7 @@ get '/' do
   @datas[datas[1][0]] = Hash[*datas[1][1]]
   @datas[datas[1][0]].merge!(Hash[*datas[1][2]])
 
-  @datas = @datas[params[:family]] if !params[:family].nil? && !params[:family].empty? 
+  @datas = {params[:family] => @datas[params[:family]]} if !params[:family].nil? && !params[:family].empty?
   # ここまでコードを入力して下さい。
   erb :index
 end
-
-# Lesson3変数を使ってプログラミング

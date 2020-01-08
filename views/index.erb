@@ -1,47 +1,56 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <title>データベースをつくろう</title>
-  </head>
-  <body>
-    <h3>種類別に動物が取り出せるようにしましょう。</h3>
-    <p>検索のできるデーターを表示します。</p>
 
-    <img src="/robot.png" alt="ロボット画像">
+<head>
+  <meta charset="UTF-8">
+  <title>データベースをつくろう</title>
+  <link href="/layout.css" rel="stylesheet">
+</head>
 
-    <p>動物の分類を選んで下さい。</p>
-
-    <form action="/" method="GET">
-      <label>動物の種類</label>
-      <select name="family">
-        <option selected><%= params[:family] %></option>
-        <% @families.each do |family| %>
-          <option value="<%= family %>"><%= family %></option>
-        <% end %>
-      </select>
-      <input type="submit" value="選ぶ">
+<body>
+<div class="wrapper">
+  <div class="contents">
+    <div class="illust">
+      <img src="illust.svg" alt="探検家">
+    </div>
+    <div class="try">
+      動物を分類別に検索してみましょう。
+    </div>
+    <form action="/" method="GET" class="form">
+      <div class="animal_select">
+        <select required name="family">
+          <option selected><%= params[:family] %></option>
+          <% @families.each do |family| %>
+            <option value="<%= family %>"><%= family %></option>
+          <% end %>
+        </select>
+      </div>
+      <input type="submit" value="検索する">
     </form>
-
-    <ul>
+    <div class="result-list">
       <% @datas.each do |data_k, data_v| %>
-        <li>
-          <%= data_k %>
-          <ul>
+        <table>
+          <thead>
+            <th><%= data_k %></th>
+          </thead>
+          <tbody>
             <% data_v.each do |kind_k, kind_v|%>
-              <li>
-                <%= kind_k %>
-                <ul>
-                  <% kind_v&.each do |animal| %>
-                    <li><%= animal %></li>
-                  <% end %>
-                </ul>
-              </li>
+              <tr>
+                <th><%= kind_k %></th>
+              </tr>
+              <% kind_v&.each do |animal| %>
+                <tr>
+                  <td><%= animal %></td>
+                </tr>
+              <% end %>
             <% end %>
-          </ul>
-        </li>
+          </tbody>
+        </table>
       <% end %>
-    </ul>
-  </body>
+    </div>
+  </div>
+</div>
+</body>
+
 </html>
 
